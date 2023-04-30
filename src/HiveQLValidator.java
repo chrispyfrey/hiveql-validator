@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import java.nio.charset.StandardCharsets;
+import java.lang.Math;
 
 import org.apache.hadoop.hive.ql.parse.ParseDriver;
 import org.apache.hadoop.hive.ql.parse.ParseException;
@@ -52,34 +53,43 @@ public class HiveQLValidator {
 
         for (int i = 0; i < queryArray.length; ++i) {
             tmp = queryArray[i].toLowerCase();
+            tmp = tmp.replaceAll("--.+(\\n|$)", "").trim();
 
-            if (pattern.matcher(tmp).find() || tmp.contains("add jar") || tmp.trim().equals("")) {
+            if (pattern.matcher(tmp).find() || tmp.contains("add jar") || tmp.contains("temporary function") || tmp.equals("")) {
                 queryArray[i] = null;
             }
             else {
-                queryArray[i] = queryArray[i].replaceAll("\\$\\{.+:.+\\}\\.?", "");
+                queryArray[i] = queryArray[i].replaceAll("--.+(\\n|$)", "");
+                queryArray[i] = queryArray[i].replaceAll("\\$\\{.{1,10}:.{1,30}\\}\\.{0,1}", "").trim();
+
+                if (queryArray[i].equals(""))
+                    queryArray[i] = null;
             }
         }
 
         ParseDriver parseDriver = new ParseDriver(); // This is what raises the SLF4J warning
         System.out.println("");
 
+        String querySample = "";
         int queryNum = 1;
 
         try {
             for (String query : queryArray) {
                 if (query != null) {
-                    System.out.println(String.format("[INFO]: Validating query #%d...", queryNum));
+                    querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{1,}", " ").trim();
+                    System.out.println(String.format("[INFO]: Validating query #%d...\n[INFO]: %s...", queryNum, querySample));
                     parseDriver.parse(query);
+                    System.out.println(String.format("[INFO]: Query #%d passed syntax validation.\n", queryNum, querySample));
                     ++queryNum;
                 }
             }
         } catch (ParseException e) {
-            System.out.println("[ERROR]: Could not parse query.");
-            e.printStackTrace();
+            System.out.println(String.format("\n[ERROR]: Error validating query #%d...\n[ERROR]: %s...", queryNum, querySample));
+            System.out.println(String.format("[ERROR]: %s", e));
+            //e.printStackTrace();
             System.exit(1);
         }
 
-        System.out.println(String.format("\n[INFO]: All queries in %s have passed HiveQL syntax validations", hqlFileName));
+        System.out.println(String.format("[INFO]: All queries in %s have passed HiveQL syntax validations", hqlFileName));
     }
 }
