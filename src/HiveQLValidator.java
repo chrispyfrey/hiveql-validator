@@ -17,52 +17,18 @@
  */
 
 import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 import org.apache.hadoop.hive.ql.parse.ParseDriver;
 import org.apache.hadoop.hive.ql.parse.ParseException;
 
 public class HiveQLValidator {
-    public static String[] readHQL(String fp) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(fp));
-        ArrayList<String> queryList = new ArrayList<String>();
-        StringBuilder stringBuilder = new StringBuilder();
-        String tmpStr = null;
-
-        while (scanner.hasNextLine()) {
-            tmpStr = scanner.nextLine().trim();
-
-            if (!tmpStr.endsWith(";")) {
-                stringBuilder.append(scanner.nextLine().replaceAll("\\$([^.]*)\\.|-{2}([^$]*)$", ""));
-            }
-            else {
-
-            }
-
-            
-            queryList.add(scanner.nextLine().replaceAll("\\$([^.]*)\\.|-{2}([^$]*)$", ""));
-        }
-
-        scanner.close();
-        return new String[] {"Hello World!"};
-    }
-
     public static void main(String[] args) {
         if (args.length == 0 || args[0].length() < 5 || !args[0].substring(args[0].length()-4, args[0].length()).equals(".hql")) {
             System.out.println("Error: An .hql filepath must be passed to this program as the first argument.");
             System.exit(1);
-        }
-
-        try {
-            
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
         byte[] fileBytes = null;
@@ -76,13 +42,27 @@ public class HiveQLValidator {
         }
 
         String queryString = new String(fileBytes, StandardCharsets.UTF_8);
-        queryString = queryString.replaceAll("\\$([^.]*)\\.", "").trim();
         String[] queryArray = queryString.split(";");
+        String tmp = null;
+
+        for (int i = 0; i < queryArray.length; ++i) {
+            tmp = queryArray[i].toLowerCase();
+            
+            if ((tmp.contains("set") && tmp.contains("=")) || (tmp.contains("add jar") && tmp.contains(".jar"))) {
+                queryArray[i] = null;
+            } 
+            else {
+                queryArray[i] = tmp.replaceAll("\\$\\{.+:.+\\}\\.?", "");
+            }
+        }
+
         ParseDriver parseDriver = new ParseDriver();
 
         try {
             for (String query : queryArray) {
-                parseDriver.parse(query);
+                if (query != null) {
+                    parseDriver.parse(query);
+                }
             }
         } catch (ParseException e) {
             System.out.println("Error: Could not parse query.");
