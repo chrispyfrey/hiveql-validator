@@ -71,7 +71,7 @@ public class HiveQLValidator {
                     System.out.println(String.format("[INFO]: Query #%d passed syntax validation.", queryNum, querySample));
                 }
                 else {
-                    System.out.println("[INFO]: Query #%d is empty.\n");
+                    System.out.println(String.format("[INFO]: Query #%d is empty.", queryNum));
                 }
                 ++queryNum;
             }
