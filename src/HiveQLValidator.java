@@ -104,7 +104,7 @@ public class HiveQLValidator {
         try {
             for (String query : queryArray) {
                 if (!query.trim().equals("")) {
-                    querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{1,}", " ").trim();
+                    querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{2,}", " ").trim();
                     System.out.println(String.format("\n[INFO]: Validating query #%d...\n[INFO]: %s...", queryNum, querySample));
                     this.parseDriver.parse(query);
                     System.out.println(String.format("[INFO]: Query #%d passed syntax validation.", queryNum, querySample));
