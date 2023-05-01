@@ -38,14 +38,14 @@ public class HiveQLValidator {
     private String dbNamePattern = "\\$\\{.*?:.*?}.*?\\.";
     private String variablePattern = "\\$\\{.*?:.*?\\}";
 
-    public HiveQLValidator(String filePath) {
+    public HiveQLValidator(String hqlFilePath) {
         byte[] fileBytes = null;
-        String[] splitFp = filePath.split("/");
+        String[] splitFp = hqlFilePath.split("/");
         this.hqlFileName = splitFp[splitFp.length-1];
         System.out.println(String.format("\n[INFO]: Opening %s for syntax validation.", this.hqlFileName));
 
         try {
-            fileBytes = Files.readAllBytes(Paths.get(filePath));
+            fileBytes = Files.readAllBytes(Paths.get(hqlFilePath));
         }
         catch (IOException e) {
             System.out.println("\n[ERROR]: Could not read .hql file. Please check the passed filepath.");
@@ -55,46 +55,6 @@ public class HiveQLValidator {
 
         this.hiveQL = new String(fileBytes, StandardCharsets.UTF_8);
         this.parseDriver = new ParseDriver();
-    }
-
-    private String removeComments(String query) {
-        return query.replaceAll(this.commentPattern, "").trim();
-    }
-
-    private String removeUseStatements(String query) {
-        return query.replaceAll(this.usePattern, "").trim();
-    }
-
-    private String removeSetStatements(String query) {
-        return query.replaceAll(this.setPattern, "").trim();
-    }
-
-    private String removeAddJarStatements(String query) {
-        return query.replaceAll(this.addJarPattern, "").trim();
-    }
-
-    private String removeTempFunctions(String query) {
-        return query.replaceAll(this.tempFuncPattern, "").trim();
-    }
-
-    private String removeDbNames(String query) {
-        return query.replaceAll(this.dbNamePattern, "").trim();
-    }
-
-    private String removeVariables(String query) {
-        return query.replaceAll(this.variablePattern, "placeholder").trim();
-    }
-
-    private String[] extractQueries(String hqlString) {
-        hqlString = hqlString.toLowerCase();
-        hqlString = this.removeComments(hqlString);
-        hqlString = this.removeUseStatements(hqlString);
-        hqlString = this.removeSetStatements(hqlString);
-        hqlString = this.removeAddJarStatements(hqlString);
-        hqlString = this.removeTempFunctions(hqlString);
-        hqlString = this.removeDbNames(hqlString);
-        hqlString = this.removeVariables(hqlString);
-        return hqlString.split(";");
     }
 
     public void validateHQL() {
@@ -123,6 +83,18 @@ public class HiveQLValidator {
         }
         
         System.out.println(String.format("[INFO]: All queries in %s have passed HiveQL syntax validations", this.hqlFileName));
+    }
+
+    private String[] extractQueries(String hqlString) {
+        this.hiveQL = this.hiveQL.toLowerCase();
+        this.hiveQL = this.hiveQL.replaceAll(this.commentPattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.usePattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.setPattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.addJarPattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.tempFuncPattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.dbNamePattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.variablePattern, "placeholder").trim();
+        return hqlString.split(";");
     }
 
     public static void main(String[] args) {
