@@ -117,7 +117,6 @@ public class HiveQLValidator {
         } catch (ParseException e) {
             System.out.println(String.format("\n[ERROR]: Error validating query #%d...\n[ERROR]: %s...", queryNum, querySample));
             System.out.println(String.format("[ERROR]: %s", e));
-            //e.printStackTrace();
             System.exit(1);
         }
         
