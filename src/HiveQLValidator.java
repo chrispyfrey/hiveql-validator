@@ -46,7 +46,8 @@ public class HiveQLValidator {
 
         try {
             fileBytes = Files.readAllBytes(Paths.get(filePath));
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("\n[ERROR]: Could not read .hql file. Please check the passed filepath.");
             e.printStackTrace();
             System.exit(1);
@@ -114,7 +115,8 @@ public class HiveQLValidator {
                 }
                 ++queryNum;
             }
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             System.out.println(String.format("\n[ERROR]: Error validating query #%d...\n[ERROR]: %s...", queryNum, querySample));
             System.out.println(String.format("[ERROR]: %s", e));
             System.exit(1);
