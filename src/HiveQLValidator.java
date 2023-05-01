@@ -30,6 +30,10 @@ public class HiveQLValidator {
         return query.replaceAll("--.*", "").trim();
     }
 
+    private static String removeUseStatements(String query) {
+        return query.replaceAll("\\buse\\b(.|\n)*?;", "").trim();
+    }
+
     private static String removeSetStatements(String query) {
         return query.replaceAll("\\bset\\b(.|\\n)*?;", "").trim();
     }
@@ -48,7 +52,8 @@ public class HiveQLValidator {
 
     private static String[] extractQueries(String query) {
         query = query.toLowerCase();
-        query = removeComments(query);
+        query = removeComments(query); // Comments should be removed first to strip unexpected keywords
+        query = removeUseStatements(query);
         query = removeSetStatements(query);
         query = removeAddJarStatements(query);
         query = removeTempFunctions(query);
