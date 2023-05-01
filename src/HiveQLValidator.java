@@ -62,7 +62,7 @@ public class HiveQLValidator {
         try {
             fileBytes = Files.readAllBytes(Paths.get(filePath));
         } catch (IOException e) {
-            System.out.println("[ERROR]: Could not read .hql file. Please check the passed filepath.");
+            System.out.println("\n[ERROR]: Could not read .hql file. Please check the passed filepath.");
             e.printStackTrace();
             System.exit(1);
         }
@@ -72,13 +72,13 @@ public class HiveQLValidator {
 
     public static void main(String[] args) {
         if (args.length == 0 || args[0].length() < 5 || !args[0].substring(args[0].length()-4, args[0].length()).equals(".hql")) {
-            System.out.println("[ERROR]: An .hql filepath must be passed to this program as the first argument.");
+            System.out.println("\n[ERROR]: An .hql filepath must be passed to this program as the first argument.");
             System.exit(1);
         }
 
         String[] splitFp = args[0].split("/");
         String hqlFileName = splitFp[splitFp.length-1];
-        System.out.println(String.format("\n[INFO]: Opening %s for syntax validation.\n", hqlFileName));
+        System.out.println(String.format("\n[INFO]: Opening %s for syntax validation.", hqlFileName));
 
         String queryString = getHql(args[0]);
         String[] queryArray = extractQueries(queryString);
