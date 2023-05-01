@@ -58,14 +58,14 @@ public class HiveQLValidator {
     }
 
     public void validateHQL() {
-        String[] queryArray = this.extractQueries(this.hiveQL);
+        String[] queryArray = this.extractQueries();
         String querySample = "";
         int queryNum = 1;
 
         try {
             for (String query : queryArray) {
                 if (!query.trim().equals("")) {
-                    querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{2,}", " ").trim();
+                    querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{1,}", " ").trim();
                     System.out.println(String.format("\n[INFO]: Validating query #%d...\n[INFO]: %s...", queryNum, querySample));
                     this.parseDriver.parse(query);
                     System.out.println(String.format("[INFO]: Query #%d passed syntax validation.", queryNum, querySample));
@@ -82,10 +82,10 @@ public class HiveQLValidator {
             System.exit(1);
         }
         
-        System.out.println(String.format("[INFO]: All queries in %s have passed HiveQL syntax validations", this.hqlFileName));
+        System.out.println(String.format("\n[INFO]: All queries in %s have passed HiveQL syntax validations", this.hqlFileName));
     }
 
-    private String[] extractQueries(String hqlString) {
+    private String[] extractQueries() {
         this.hiveQL = this.hiveQL.toLowerCase();
         this.hiveQL = this.hiveQL.replaceAll(this.commentPattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.usePattern, "").trim();
@@ -94,7 +94,7 @@ public class HiveQLValidator {
         this.hiveQL = this.hiveQL.replaceAll(this.tempFuncPattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.dbNamePattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.variablePattern, "placeholder").trim();
-        return hqlString.split(";");
+        return this.hiveQL.split(";");
     }
 
     public static void main(String[] args) {
