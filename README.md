@@ -28,3 +28,4 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 - The parser does not mind comments, but leaving them in can make it hard to match other keywords that the parser will not accept.
 - The following keywords are not recognized by the parser: ```SET, USE, ADD JAR```
 - I kind of played whack-a-mole with like thirty HQL files from work when creating regex patterns for pre-processing HiveQL queries. Probably missed some things.
+- This thing could probably be reduced wayyyy down, but I forgot how much of it's own thing Java is and need to hit the books.
