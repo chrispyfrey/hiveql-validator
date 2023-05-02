@@ -29,3 +29,4 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 - The following keywords are not recognized by the 4.0 parser: ```SET, USE, ADD JAR```
 - I kind of played whack-a-mole with like thirty HQL files from work when creating regex patterns for pre-processing HiveQL queries. Probably missed some things.
 - This thing could probably be reduced way down as far as dependencies go, but I forgot how much of it's own thing Java is and need to hit the books.
+- I just pulled the first jars that came up from searching package names in the Maven repository as I encountered import errors.
