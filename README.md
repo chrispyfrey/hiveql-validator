@@ -1,5 +1,5 @@
 # HiveQL Validator
-A completely local HiveQL syntax checker based on the Apache Hive parser. Uses the Apache Hive 4.0 parser.
+A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 
 ## Requirements
 - Only tested on the Java 8 JDK.
