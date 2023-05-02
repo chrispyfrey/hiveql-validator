@@ -87,13 +87,13 @@ public class HiveQLValidator {
 
     private String[] extractQueries() {
         this.hiveQL = this.hiveQL.toLowerCase();
-        this.hiveQL = this.hiveQL.replaceAll(this.commentPattern, "").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.commentPattern, "").trim(); // Strip comments first to avoid unpredictable keyword presence
         this.hiveQL = this.hiveQL.replaceAll(this.usePattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.setPattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.addJarPattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.tempFuncPattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.dbNamePattern, "").trim();
-        this.hiveQL = this.hiveQL.replaceAll(this.variablePattern, "placeholder").trim();
+        this.hiveQL = this.hiveQL.replaceAll(this.variablePattern, "placeholder").trim(); // Overlaps dbNamePattern -> Order unfortunately matters!
         return this.hiveQL.split(";");
     }
 
