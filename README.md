@@ -6,7 +6,7 @@ A completely local and lightweight HiveQL syntax checker based on the Apache Hiv
 - ```java -version```
 - Consider installing Java 8 if you run into issues with another version.
 - Recommend [Homebrew](https://brew.sh/) package manager if you need to install a Java JDK on MacOS.
-- The Temurin8 distribution works good for me if you are on a M1/M2 MBP.
+- The Temurin8 distribution works good for me if you are on a M1/M2 Mac.
 
 ## Installation
 - Download or clone this repository.
