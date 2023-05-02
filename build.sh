@@ -2,7 +2,7 @@
 
 CLASSPATH="`pwd`/lib/*:`pwd`/src/"
 EXE_PATH="`pwd`/src/"
-javac src/HiveQLValidator.java
+javac src/HiveQLValidator.java # Needs error handling
 
 BOLD_PURPLE='\033[1;34m'
 BOLD_GREEN='\033[1;32m'
