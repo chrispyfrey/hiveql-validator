@@ -87,6 +87,7 @@ public class HiveQLValidator {
 
     private String[] extractQueries() {
         this.hiveQL = this.hiveQL.toLowerCase();
+        // Could be refactored to use one pattern and one replaceAll() call
         this.hiveQL = this.hiveQL.replaceAll(this.commentPattern, "").trim(); // Strip comments first to avoid unpredictable keyword presence
         this.hiveQL = this.hiveQL.replaceAll(this.usePattern, "").trim();
         this.hiveQL = this.hiveQL.replaceAll(this.setPattern, "").trim();
