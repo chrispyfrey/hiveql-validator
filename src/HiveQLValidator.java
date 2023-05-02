@@ -42,7 +42,7 @@ public class HiveQLValidator {
         byte[] fileBytes = null;
         String[] splitFp = hqlFilePath.split("/");
         this.hqlFileName = splitFp[splitFp.length-1];
-        System.out.println(String.format("\n[INFO]: Opening %s for syntax validation.", this.hqlFileName));
+        System.out.println(String.format("[INFO]: Opening %s for syntax validation.", this.hqlFileName));
 
         try {
             fileBytes = Files.readAllBytes(Paths.get(hqlFilePath));
@@ -82,7 +82,7 @@ public class HiveQLValidator {
             System.exit(1);
         }
         
-        System.out.println(String.format("\n[INFO]: All queries in %s have passed HiveQL syntax validations", this.hqlFileName));
+        System.out.println(String.format("\n[INFO]: All queries in %s have passed HiveQL syntax validations.", this.hqlFileName));
     }
 
     private String[] extractQueries() {
@@ -104,6 +104,7 @@ public class HiveQLValidator {
             System.exit(1);
         }
 
+        System.out.println("[INFO]: Line numbers of syntax errors are relative to the beginning of each individual query.");
         HiveQLValidator hiveQlValidator = new HiveQLValidator(args[0]);
         hiveQlValidator.validateHQL();
     }
