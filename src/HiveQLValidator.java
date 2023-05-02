@@ -104,7 +104,7 @@ public class HiveQLValidator {
             System.exit(1);
         }
 
-        System.out.println("[INFO]: Line numbers of syntax errors are relative to the beginning of each individual query.");
+        System.out.println("[INFO]: Line numbers of syntax errors are relative to the beginning of each individual query. This count also ignores comment-only lines.");
         HiveQLValidator hiveQlValidator = new HiveQLValidator(args[0]);
         hiveQlValidator.validateHQL();
     }
