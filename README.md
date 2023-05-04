@@ -4,9 +4,9 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 ## Requirements
 - Only tested on the Java 8 JDK.
 - ```$ java -version```
-- Consider installing Java 8 if you run into issues with another version.
-- Recommend [Homebrew](https://brew.sh/) package manager if you need to install a Java JDK on MacOS.
-- The Temurin8 distribution works good for me if you are on a M1/M2 Mac.
+- Consider installing the Java 8 JDK if you run into compile issues with other version.
+- Recommend [Homebrew](https://brew.sh/) package manager if you need to install a Java JDK on MacOS. Linux users don't need to be told how to install a JDK, and you're on your own if you have accepted Bill Gates into your heart.
+- The Temurin8 distribution works good for me and looks like it is replacing OpenJDK.
 
 ## Installation (Unix/Unix-like)
 - Download or clone this repository.
