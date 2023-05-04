@@ -12,7 +12,7 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 - Download or clone this repository.
 - Navigate to your new ```hiveql-validator``` folder.
 - The next step is probably bad form. I am still reading up on Java packaging. The ```HiveQLValidator.java``` file just needs to be compiled with the .jar files in ```lib/``` on the Java classpath.
-- Run: ```$ ./build.sh``` to compile the program and print some useful copy/paste instructions. May need to run ```$ chmod +x build.sh``` first.
+- Run: ```$ ./build.sh``` to compile the program and print some useful copy/paste instructions. May need to run ```$ chmod +x build.sh``` first to make the build script executable.
 - Add the ```hiveql-validator/src/``` and ```hiveql-validator/lib/*``` folders to the Java classpath as a command in your shell start script.
 - ```export CLASSPATH='path/to/your/hiveql-validator/lib/*:path/to/your/hiveql-validator/src/'```
 - Optionally alias the program call in your shell start script for more convenient use.
