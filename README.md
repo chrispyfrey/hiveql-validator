@@ -25,7 +25,7 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
 - ```$ hiveql-validator /path/to/my/hql_query.hql```
 
 ## Development Notes
-- The parser does not mind comments, but leaving them in can yield false positive for keyword patterns that the parser will not accept.
+- The parser does not mind comments, but leaving them in can yield false positives for keyword patterns that the parser will not accept.
 - The following keywords are not recognized by the 4.0 parser: ```SET, USE, ADD JAR```
 - I kind of played whack-a-mole with like thirty random HQL files when creating regex patterns for pre-processing HiveQL queries. Probably missed some things.
 - My next steps are to put something better together for packaging/distribution and to reduce dependencies.
