@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CLASSPATH="`pwd`/lib/*:`pwd`/src/"
+export CLASSPATH="`pwd`/lib/*:`pwd`/src/"
 EXE_PATH="`pwd`/src/"
 javac src/HiveQLValidator.java # Needs error handling
 
