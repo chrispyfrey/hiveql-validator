@@ -90,6 +90,7 @@ public class HiveQLValidator {
     public void validateHQL() {
         String querySample = "";
         int queryNum = 1;
+        System.out.println("[INFO]: Line numbers of syntax errors are relative to the beginning of each individual query. This count also ignores comment-only lines.");
         if (this.isDirectory)
             System.out.println(String.format("\n[INFO]: Opening files in %s folder for syntax validation.", this.filePath));
         try {
@@ -97,9 +98,7 @@ public class HiveQLValidator {
                 String[] queryArray = this.extractQueries(this.hiveQLList.get(i));
                 querySample = "";
                 queryNum = 1;
-
                 System.out.println(String.format("\n[INFO]: Opening %s for syntax validation.", this.hqlFileNameList.get(i)));
-
                 for (String query : queryArray) {
                     if (!query.trim().equals("")) {
                         querySample = query.substring(0, Math.min(query.length(), 75)).replaceAll("\\s{1,}", " ").trim();
@@ -147,7 +146,6 @@ public class HiveQLValidator {
             System.exit(1);
         }
 
-        System.out.println("[INFO]: Line numbers of syntax errors are relative to the beginning of each individual query. This count also ignores comment-only lines.");
         HiveQLValidator hiveQlValidator = new HiveQLValidator(pathArg, isDir);
         hiveQlValidator.validateHQL();
     }
