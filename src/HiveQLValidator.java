@@ -138,7 +138,7 @@ public class HiveQLValidator {
     }
 
     public static void main(String[] args) {
-        String pathArg = (args.length > 0) ? args[0] : "";
+        String pathArg = (args.length > 0) ? args[0] : System.getProperty("user.dir");
         int pathArgLen = pathArg.length();
         boolean isDir = Files.isDirectory(Paths.get(pathArg));
         
