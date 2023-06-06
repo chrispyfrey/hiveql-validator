@@ -22,10 +22,12 @@ A completely local HiveQL syntax checker based on the Apache Hive 4.0 parser.
   - ```alias hiveql-validator='java HiveQLValidator'```
 
 ## Usage
-- Call the hiveql-validator program with an .hql file as the only argument
+- Call the hiveql-validator program with an .hql file or a folder containing .hql files as the only argument
   - ```$ java HiveQLValidator /path/to/my/hql_query.hql```
+  - ```$ java HiveQLValidator /path/to/my/hql_folder```
 - With recommended alias
   - ```$ hiveql-validator /path/to/my/hql_query.hql```
+  - ```$ hiveql-validator /path/to/my/hql_folder```
 
 ## Development Notes
 - The parser does not mind comments, but leaving them in can yield false positives for keyword patterns that the parser will not accept.
